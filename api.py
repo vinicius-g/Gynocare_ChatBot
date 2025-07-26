@@ -3,6 +3,8 @@ import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
+from token_utils import truncar_historico
+from chain import system_prompt
 
 import chain as chatbot_chain
 
@@ -39,9 +41,16 @@ def chat(req: ChatRequest):
         diretorio_db=os.getenv("DIRETORIO_DB"),
     )
 
+    historico_truncado = truncar_historico(
+        chat_history=history_msgs,
+        system_prompt=system_prompt,
+        user_input=req.user_input,
+        db_msgs=db_msgs
+    )
+
     llm_input = {
         "user_input": req.user_input,
-        "chat_history": history_msgs,
+        "chat_history": historico_truncado,
         "database_responses": db_msgs,
     }
     ai_response = chat_model.invoke(llm_input)

@@ -110,6 +110,14 @@ def get_database_responses(
 
     return database_messages, reasoning
 
+system_prompt = (
+        "Você é um atendente da Clínica Gynocare. Suas respostas devem ser simples e diretas, "
+        "com linguagem formal e gentil. Você receberá respostas similares do banco de perguntas "
+        "frequentes (tabelas por idade). Use essas respostas como base. Se não encontrar, responda:\n"
+        "'Desculpe, não tenho uma resposta para isso no momento. Por favor, entre em contato com "
+        "nosso suporte ao cliente para mais informações.' Responda apenas com texto, sem formatação, "
+        "emojis ou links."
+    )
 
 def create_chain(temperature: float = 0.1) -> ChatPromptTemplate:
     """
@@ -121,14 +129,6 @@ def create_chain(temperature: float = 0.1) -> ChatPromptTemplate:
     Returns:
         Um objeto ChatPromptTemplate para ser invocado posteriormente.
     """
-    system_prompt = (
-        "Você é um atendente da Clínica Gynocare. Suas respostas devem ser simples e diretas, "
-        "com linguagem formal e gentil. Você receberá respostas similares do banco de perguntas "
-        "frequentes (tabelas por idade). Use essas respostas como base. Se não encontrar, responda:\n"
-        "'Desculpe, não tenho uma resposta para isso no momento. Por favor, entre em contato com "
-        "nosso suporte ao cliente para mais informações.' Responda apenas com texto, sem formatação, "
-        "emojis ou links."
-    )
 
     user_prompt = (
         "Dados do banco (tabelas de idade/resposta):\n{database_responses}\n\n"
