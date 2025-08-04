@@ -2,3 +2,5 @@
 /chroma_db_gynocare_base_gynocare_final/2271022b-32b2-43ac-99f4-85e52a0ca09d
 /chroma_db_gynocare_base_gynocare_final
 /chroma_db_gynocare_faq_gynocare
+__pycache__
+.env
